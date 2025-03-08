@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hero Section</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hero Section</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <section class="hero">
-        <div class="fixed-width">
-            <div class="hero-left">
-                <h1 class="hero-heading">Web Developer & AR Creator</h1>
-                <p class="hero-subtitle">A web design/developer with a passion for 3D & interactive experiences. </p>
-                <button class="hero-button">Contact</button>
-            </div>
-            <div class="hero-right">
-              <div class='code-loading'>
-
-                <p id="codingMessage">Loading the spice...</p>
-              </div>
-
-              <!-- <div id="loadingMessage">Loading Three.js...</div> -->
-              <canvas id="myCanvas"></canvas>
-            </div>
+      <div class="fixed-width">
+        <div class="hero-left">
+          <h1 class="hero-heading">Web Developer & AR Creator</h1>
+          <p class="hero-subtitle">A web design/developer with a passion for 3D & interactive experiences. </p>
+          <button class="hero-button">Contact</button>
         </div>
+        <div class="hero-right">
+          <div class='code-loading'>
+
+            <p id="codingMessage">Loading the spice...</p>
+          </div>
+
+          <!-- <div id="loadingMessage">Loading Three.js...</div> -->
+          <canvas id="myCanvas"></canvas>
+        </div>
+      </div>
     </section>
 
 
@@ -171,9 +171,10 @@
         let allModels;
         let screenMaterial;
         let imageArray = [
+            'code3.jpg',
             'code2.jpg',
-            // 'bentS.jpg',
             'code.jpg',
+            'bentS.jpg',
             // ... add more image paths as needed
         ];
         let imageIndex = 0;
@@ -199,7 +200,7 @@
               cursor = gltf.scene.children.find(child => child.name === 'cursor');
               phone = gltf.scene.children.find(child => child.name === 'phone');
               document.querySelector('.code-loading').style.display = 'none'; // Hide loading message
-              
+
               // Find the screenMat material
               allModels.traverse(function (child) {
                   if (child.isMesh && child.material.name === 'screenMat') {
@@ -207,7 +208,7 @@
                       // printMaterialProperties(screenMaterial);
                   }
               });
-              // cursor.scale.set(0.1, 0.1, 0.1);
+              cursor.scale.set(0.1, 0.1, 0.1);
           });
           // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
 
@@ -237,7 +238,8 @@
           // const helper = new THREE.DirectionalLightHelper(directionalLight, 1);
           // scene.add(helper);
 
-          const amb = new THREE.AmbientLight(0xffffff, 1.5); // Color (white) and intensity (1)
+          // const amb = new THREE.AmbientLight(0xffffff, 1.5); // Color (white) and intensity (1)
+          const amb = new THREE.AmbientLight(0x659df7, 1.5); // Color (white) and intensity (1)
           scene.add(amb);
 
           // Isometric Camera Setup
@@ -368,7 +370,7 @@
             console.log('boop');
               changeScreenTexture(imageArray[imageIndex]);
               imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
-          }, 1500);
+          }, 1000);
       }
 
 

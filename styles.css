@@ -127,9 +127,8 @@ section {
 .hero-right{
   /* background-color: #c1c1c1; */
   /* justify-content: start; */
-  /* height: 600px; */
   align-items: center;
-  height: 500px;
+  height: 700px;
 }
 
 /* code gen load screen */
@@ -170,5 +169,5 @@ section {
 #myCanvas
 {
   width:100%; height: 100%;
-  border: 1px solid green;
+  /* border: 1px solid green; */
 }
