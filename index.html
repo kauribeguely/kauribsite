@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hero Section</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <section class="hero">
+        <div class="fixed-width">
+            <div class="hero-left">
+                <h1 class="hero-heading">Web Developer & AR Creator</h1>
+                <p class="hero-subtitle">A web design/developer with a passion for 3D & interactive experiences. </p>
+                <button class="hero-button">Contact</button>
+            </div>
+            <div class="hero-right">
+              <div class='code-loading'>
+
+                <p id="codingMessage">Loading the spice...</p>
+              </div>
+
+              <!-- <div id="loadingMessage">Loading Three.js...</div> -->
+              <canvas id="myCanvas"></canvas>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+
+
+      const orders = ["rog", "rwr", "rogwr", "rogogr", "r", "rwwr"];
+
+      const jsOrders = ["pwo", "pb", "porbg", "rrbg", "pbw", "ppwo"];
+
+      // const activeOrders = jsOrders;
+      const activeOrders = orders;
+
+      const lineNum = 10;
+      const indentWidth = 20;
+      const maxWidth = 80;
+      const minWidth = 20;
+      const maxRedWidth = 40;
+      const minRedWidth = 15;
+
+
+
+      // const container1 = document.querySelector('.hero-right');
+      const container1 = document.querySelector('.code-loading');
+      const codingMessage = document.querySelector('#codingMessage');
+
+      generateCodeIllustration(container1, orders);
+      // generateCodeIllustration(container2, jsOrders);
+      function generateCodeIllustration(container, ordersList)
+      {
+          let addDelay = 0;
+          let currentIndent = 0;
+
+
+
+          // create blocks in a line then go new line and repeat
+
+           // r o g, r w r, r o g w r,
+            //choose random order from above
+
+            //each line
+            for(let i = 0; i < lineNum; i++)
+            {
+              let lineDiv = document.createElement('div');
+              lineDiv.classList.add('div-line');
+              // const order = activeOrders[Math.floor(Math.random() * activeOrders.length)];
+              const order = ordersList[Math.floor(Math.random() * ordersList.length)];
+              for(let block = 0; block < order.length; block++)
+              {
+                const blockType = order.charAt(block);
+                const element = makeBlockFromLetter(blockType);
+
+                let maxW = maxWidth;
+                let minW = minWidth;
+
+                if(blockType == 'r' || blockType == 'p')
+                {
+                  maxW = maxRedWidth;
+                  minW = minRedWidth;
+                }
+                else if(blockType == 'w')
+                {
+                  maxW = 80;
+                  minW = 50;
+                }
+
+                const randomWidth = Math.random() * maxW + minW;
+                element.style.width = randomWidth + 'px';
+
+
+                lineDiv.append(element);
+                setTimeout(function(){element.style.opacity = '1.0';}, addDelay);
+                // setTimeout(function(){lineDiv.append(element);}, addDelay);
+                addDelay += Math.random()*150 + 20;
+                // lineDiv.append(element);
+              }
+              lineDiv.style.marginLeft = currentIndent + 'px';
+
+              const plusOrMinus = Math.random() < 0.5 ? -1 : 1;
+              currentIndent += plusOrMinus * indentWidth;
+              if(currentIndent < 0) currentIndent = 20;
+              if(currentIndent > (4 * indentWidth)) currentIndent = (4 * indentWidth);
+
+              // container.insertBefore(lineDiv, codingMessage);
+              container.appendChild(lineDiv);
+            }
+
+         }
+
+         // e.g. for(lineNum, () = > { do something })
+
+         function makeBlockFromLetter(letter)
+         {
+           //e06c75 red, 9da5b4 gray, c57c36 orange, 73bc66 green, 5fabe9 blue
+
+
+           let block = document.createElement('div');
+           block.classList.add('code-block');
+
+           let color;
+           switch(letter) {
+            case 'r':
+              color = '#e06c75';
+              break;
+            case 'o':
+              color = 'var(--yorange)';
+              break;
+            case 'g':
+              color = '#73bc66';
+              break;
+            case 'w':
+              // color = 'var(--white)';
+              color = '#bbbbbb';
+              break;
+            case 'b':
+              color = '#5fabe9';
+              break;
+            case 'p':
+              color = '#c14cc1';
+              break;
+           }
+           block.style.backgroundColor = color;
+           return block;
+       }
+  </script>
+
+
+  <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+            }
+        }
+    </script>
+
+
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        // When Three.js is loaded...
+        let cursor, phone;
+        let allModels;
+        let screenMaterial;
+        let imageArray = [
+            'code2.jpg',
+            // 'bentS.jpg',
+            'code.jpg',
+            // ... add more image paths as needed
+        ];
+        let imageIndex = 0;
+        let intervalId; // To store the interval ID
+        async function init() {
+
+
+          const loader = new GLTFLoader();
+
+
+            // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
+            const canvas = document.getElementById('myCanvas');
+            canvas.style.display = 'block';
+
+
+          const scene = new THREE.Scene();
+          // loader.load('all2.glb', function (gltf) {
+          loader.load('allDev.glb', function (gltf) {
+              scene.add(gltf.scene);
+              allModels = gltf.scene;
+              allModels.rotation.x = rad(-15);
+              // cursor = gltf.scene.children[0].children.find(child => child.name === 'cursor');
+              cursor = gltf.scene.children.find(child => child.name === 'cursor');
+              phone = gltf.scene.children.find(child => child.name === 'phone');
+              document.querySelector('.code-loading').style.display = 'none'; // Hide loading message
+              
+              // Find the screenMat material
+              allModels.traverse(function (child) {
+                  if (child.isMesh && child.material.name === 'screenMat') {
+                      screenMaterial = child.material;
+                      // printMaterialProperties(screenMaterial);
+                  }
+              });
+              // cursor.scale.set(0.1, 0.1, 0.1);
+          });
+          // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+
+          const aspect = canvas.clientWidth / canvas.clientHeight;
+          const orthographicCamera = new THREE.OrthographicCamera(
+              -3 * aspect, // left
+              3 * aspect,  // right
+              3,           // top
+              -3,          // bottom
+              0.1,         // near
+              1000         // far
+          );
+          orthographicCamera.position.set(5, 5, 5);
+          orthographicCamera.lookAt(0, 0, 0);
+          let camera = orthographicCamera;
+
+
+          const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, });
+          renderer.setClearColor(0x000000, 0);
+          renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+          // renderer.outputEncoding = THREE.sRGBEncoding;
+
+          const directionalLight = new THREE.DirectionalLight(0xffffff, 3); // Color (white) and intensity (1)
+          directionalLight.position.set(-1, 2, 0); // Position of the light source
+          scene.add(directionalLight);
+          // Helper to visualize the light's direction
+          // const helper = new THREE.DirectionalLightHelper(directionalLight, 1);
+          // scene.add(helper);
+
+          const amb = new THREE.AmbientLight(0xffffff, 1.5); // Color (white) and intensity (1)
+          scene.add(amb);
+
+          // Isometric Camera Setup
+          camera.position.set(5, 5, 5);
+          camera.lookAt(0, 0, 0);
+
+          // Orbit Controls for interaction
+          const controls = new OrbitControls(camera, renderer.domElement);
+          controls.enableDamping = true; // Animate controls using damping
+          controls.dampingFactor = 0.05;
+          controls.screenSpacePanning = false;
+          controls.minDistance = 2;
+          controls.maxDistance = 20;
+
+          // Function to change the screenMat texture (emissive)
+          function changeScreenTexture(imageUrl) {
+              if (screenMaterial) {
+                  const textureLoader = new THREE.TextureLoader();
+                  textureLoader.load(imageUrl, function (texture) {
+                    texture.colorSpace = THREE.SRGBColorSpace; // Use colorSpace instead of encoding (Three.js r152+)
+
+                      texture.flipY = false;
+                      screenMaterial.emissiveMap = texture; // Use emissiveMap
+                      screenMaterial.needsUpdate = true;
+                      // console.log('CHANGE TEXTURE');
+                      // printMaterialProperties(screenMaterial);
+
+                  }, undefined, function (error) {
+                      console.error('Error loading texture:', error);
+                  });
+              } else {
+                  console.error('screenMat material is not available.');
+              }
+          }
+
+          // setTimeout(function() {
+          //     changeScreenTexture('bentS.jpg'); // Replace with your image's path
+          // }, 2000); // Change texture after 2 seconds (for example)
+
+          // const lineHeight = 1;
+          // const blockHeight = 0.5;
+          // const blockDepth = 0.5;
+          // const blockSpacing = 0.2;
+          // const maxLineWidth = 8;
+          //
+          // let currentY = lineHeight / 2;
+          // let currentX = -maxLineWidth / 2;
+          //
+          // function createBlock() {
+          //     const blockWidth = Math.random() * 2 + 0.5;
+          //     const geometry = new THREE.BoxGeometry(blockWidth, blockHeight, blockDepth);
+          //     const material = new THREE.MeshStandardMaterial({ color: 0xf1f1f1 });
+          //     // const material = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
+          //     const block = new THREE.Mesh(geometry, material);
+          //
+          //     block.position.x = currentX + blockWidth / 2;
+          //     block.position.y = currentY;
+          //     scene.add(block);
+          //
+          //     currentX += blockWidth + blockSpacing;
+          //     if (currentX > maxLineWidth / 2) {
+          //         currentX = -maxLineWidth / 2;
+          //         currentY -= lineHeight;
+          //     }
+          // }
+          //
+          // const numLines = 10;
+          // const blocksPerLine = 15;
+          //
+          // for (let i = 0; i < numLines * blocksPerLine; i++) {
+          //     createBlock();
+          // }
+
+          document.onmousemove = function(event) {
+              // Get mouse coordinates
+              let mouseX = event.clientX;
+              let mouseY = event.clientY;
+
+              // Get window dimensions
+              let windowWidth = window.innerWidth;
+              let windowHeight = window.innerHeight;
+
+              // Normalize mouse coordinates to a range of 0 to 1
+              let normalizedMouseX = mouseX / windowWidth;
+              let normalizedMouseY = mouseY / windowHeight;
+              let centeredX = normalizedMouseX - 0.5;
+              let centeredY = normalizedMouseY - 0.5;
+
+              // Map normalized coordinates to your desired ranges
+              let cursorX = mapRange(normalizedMouseX, 0, 1, -1.83, 1.93);
+              let cursorY = mapRange(normalizedMouseY, 0, 1, 1.727, -0.288);
+
+              // Update cursor position (assuming 'cursor' is your Three.js cursor object)
+              if (cursor) {
+                  cursor.position.x = cursorX;
+                  cursor.position.y = cursorY;
+              }
+
+              // Rotate the model group
+              if (allModels) {
+                  // allModels.rotation.x = normalizedMouseY * Math.PI * 5 / 180; // 5 degrees rotation
+                  allModels.rotation.x = centeredY * rad(5) + rad(-15); // 5 degrees rotation
+                  allModels.rotation.y = centeredX * rad(5);
+                  phone.rotation.z = centeredY * rad(5); // 5 degrees rotation
+                  phone.rotation.y = centeredX * rad(5);
+              }
+          };
+
+
+          function rad(deg)
+          {
+            return deg * (Math.PI / 180);
+          }
+          // Helper function to map a value from one range to another
+          function mapRange(value, inMin, inMax, outMin, outMax) {
+              return (value - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+          }
+
+          function animate() {
+              requestAnimationFrame(animate);
+              controls.update(); // Update OrbitControls
+              renderer.render(scene, camera);
+          }
+
+          animate();
+
+          intervalId = setInterval(function () {
+            console.log('boop');
+              changeScreenTexture(imageArray[imageIndex]);
+              imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
+          }, 1500);
+      }
+
+
+
+      init();
+
+      //HELPER, DELETE PRE PUBLISH
+
+      function printMaterialProperties(material) {
+          if (material) {
+              console.log("Material Name:", material.name);
+              console.log("Material Type:", material.type);
+              console.log("Emissive Color:", material.emissive);
+              console.log("Emissive Map:", material.emissiveMap);
+              console.log("Emissive Intensity:", material.emissiveIntensity);
+              console.log("Map:", material.map);
+              console.log("Encoding:", material.encoding);
+              console.log("Needs Update:", material.needsUpdate);
+              // console.log("Encoding set. Texture:", texture); // Check the texture object
+              console.log("Color Space:", material.emissiveMap.colorSpace); // Check colorSpace directly
+
+              // Add other properties you want to inspect
+          } else {
+              console.error("Material is not defined.");
+          }
+      }
+    </script>
+</body>
+</html>
