@@ -175,20 +175,21 @@
             'code2.jpg',
             'code.jpg',
             'bentS.jpg',
+            'bentS.jpg',
             // ... add more image paths as needed
         ];
         let imageIndex = 0;
         let intervalId; // To store the interval ID
+        const switchTime = 500;
+        const textureLoader = new THREE.TextureLoader();
+        const loader = new GLTFLoader();
         async function init() {
 
 
-          const loader = new GLTFLoader();
 
-
-            // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
-            const canvas = document.getElementById('myCanvas');
-            canvas.style.display = 'block';
-
+          // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
+          const canvas = document.getElementById('myCanvas');
+          canvas.style.display = 'block';
 
           const scene = new THREE.Scene();
           // loader.load('all2.glb', function (gltf) {
@@ -206,19 +207,17 @@
               allModels.traverse(function (child) {
                   if (child.isMesh && child.material.name === 'screenMat') {
                       screenMaterial = child.material;
-                      intervalId = setInterval(function () {
-                        // console.log('boop');
-                        screenMaterial.emissive.set(0xFFFFFF);
-                        
-                          changeScreenTexture(imageArray[imageIndex]);
-                          imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
-                      }, 1000);
-                      printMaterialProperties(screenMaterial);
+
+                      // printMaterialProperties(screenMaterial);
                   }
               });
               cursor.scale.set(0.1, 0.1, 0.1);
+
+              loadTexture('code3.jpg'); //preloads
           });
           // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+
+
 
           const aspect = canvas.clientWidth / canvas.clientHeight;
           const orthographicCamera = new THREE.OrthographicCamera(
@@ -262,26 +261,19 @@
           controls.minDistance = 2;
           controls.maxDistance = 20;
 
-          // Function to change the screenMat texture (emissive)
-          function changeScreenTexture(imageUrl) {
-              if (screenMaterial) {
-                  const textureLoader = new THREE.TextureLoader();
-                  textureLoader.load(imageUrl, function (texture) {
-                    texture.colorSpace = THREE.SRGBColorSpace; // Use colorSpace instead of encoding (Three.js r152+)
-
-                      texture.flipY = false;
-                      screenMaterial.emissiveMap = texture; // Use emissiveMap
-                      screenMaterial.needsUpdate = true;
-                      // console.log('CHANGE TEXTURE');
-                      // printMaterialProperties(screenMaterial);
-
-                  }, undefined, function (error) {
-                      console.error('Error loading texture:', error);
-                  });
-              } else {
-                  console.error('screenMat material is not available.');
+          function loadTexture(imageUrl)
+          {
+            textureLoader.load(imageUrl, function (texture)
+            {
+              //only run on first texture loaded
+              if(intervalId == null)
+              {
+                startTextureSwitch();
               }
+            });
           }
+
+
 
           // setTimeout(function() {
           //     changeScreenTexture('bentS.jpg'); // Replace with your image's path
@@ -378,7 +370,25 @@
       }
 
 
+      // Function to change the screenMat texture (emissive)
+      function changeScreenTexture(imageUrl) {
+          if (screenMaterial) {
+              textureLoader.load(imageUrl, function (texture) {
+                texture.colorSpace = THREE.SRGBColorSpace; // Use colorSpace instead of encoding (Three.js r152+)
 
+                  texture.flipY = false;
+                  screenMaterial.emissiveMap = texture; // Use emissiveMap
+                  screenMaterial.needsUpdate = true;
+                  // console.log('CHANGE TEXTURE');
+                  // printMaterialProperties(screenMaterial);
+
+              }, undefined, function (error) {
+                  console.error('Error loading texture:', error);
+              });
+          } else {
+              console.error('screenMat material is not available.');
+          }
+      }
       init();
 
       //HELPER, DELETE PRE PUBLISH
@@ -400,6 +410,16 @@
           } else {
               console.error("Material is not defined.");
           }
+      }
+
+      function startTextureSwitch()
+      {
+        intervalId = setInterval(function () {
+          // console.log('boop');
+          screenMaterial.emissive.set(0xFFFFFF);
+          changeScreenTexture(imageArray[imageIndex]);
+          imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
+        }, switchTime);
       }
     </script>
 </body>
