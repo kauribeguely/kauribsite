@@ -192,7 +192,8 @@
 
           const scene = new THREE.Scene();
           // loader.load('all2.glb', function (gltf) {
-          loader.load('allDev.glb', function (gltf) {
+          loader.load('a.glb', function (gltf) {
+          // loader.load('allDev.glb', function (gltf) {
               scene.add(gltf.scene);
               allModels = gltf.scene;
               allModels.rotation.x = rad(-15);
@@ -205,7 +206,14 @@
               allModels.traverse(function (child) {
                   if (child.isMesh && child.material.name === 'screenMat') {
                       screenMaterial = child.material;
-                      // printMaterialProperties(screenMaterial);
+                      intervalId = setInterval(function () {
+                        // console.log('boop');
+                        screenMaterial.emissive.set(0xFFFFFF);
+                        
+                          changeScreenTexture(imageArray[imageIndex]);
+                          imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
+                      }, 1000);
+                      printMaterialProperties(screenMaterial);
                   }
               });
               cursor.scale.set(0.1, 0.1, 0.1);
@@ -341,10 +349,10 @@
               // Rotate the model group
               if (allModels) {
                   // allModels.rotation.x = normalizedMouseY * Math.PI * 5 / 180; // 5 degrees rotation
-                  allModels.rotation.x = centeredY * rad(5) + rad(-15); // 5 degrees rotation
-                  allModels.rotation.y = centeredX * rad(5);
-                  phone.rotation.z = centeredY * rad(5); // 5 degrees rotation
-                  phone.rotation.y = centeredX * rad(5);
+                  allModels.rotation.x = centeredY * rad(15) + rad(-15); // 5 degrees rotation
+                  allModels.rotation.y = centeredX * rad(15);
+                  phone.rotation.z = centeredX * rad(-15); // 5 degrees rotation
+                  phone.rotation.y = centeredX * rad(-15);
               }
           };
 
@@ -366,11 +374,7 @@
 
           animate();
 
-          intervalId = setInterval(function () {
-            console.log('boop');
-              changeScreenTexture(imageArray[imageIndex]);
-              imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
-          }, 1000);
+
       }
 
 

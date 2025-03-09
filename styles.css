@@ -98,8 +98,10 @@ section {
 .hero-heading {
     /* font-size: 2.5rem; */
     /* margin-bottom: 1rem; */
-    margin: 10px 0px;
+    margin: 10px 0px 32px;
     line-height: 95px;
+    rotate: -4deg;
+    transform: skew(-5deg, 0deg);
 }
 
 .hero-subtitle {
@@ -110,13 +112,14 @@ section {
 .hero-button {
     padding: 0.8rem 1.5rem;
     background-color: var(--yorange);
-    color: white;
+    color: var(--darkblue);
     border: none;
     cursor: pointer;
     width: 411px;
     font-family: 'Josefin', sans-serif;
     text-transform: uppercase;
     letter-spacing: 1.2em;
+    margin-top: 65px;
 }
 
 .code-loading
