@@ -42,10 +42,54 @@
 
     </section>
     <section class="blog h100 bblue">
-      <div class="fixed-width">
+      <div class="fixed-width flex-column">
 
         <h2 class="sec-heading">Blog</h2>
+        <div class="post-grid" id="postGrid"></div>
 
+        <style>
+            .post-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
+                height: 600px;
+            }
+
+            .post {
+                width: 23%; /* 4 posts per row */
+                max-width: 300px;
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .post img {
+                width: 100%;
+                aspect-ratio: 1 / 1; /* Makes the image square */
+                object-fit: cover;
+                background-color: #f0f0f0; /* Placeholder background */
+            }
+
+            .post h3 a:a
+                font-size: 1.2em;
+                color: var(--yorange);!;!i;!;
+                text-align: 10px 0;
+                text-decoration: none!important;!importan;!importa;!import;!impor;!impo;!imp;!im;!i;!;
+            }
+
+            .post .date {
+                font-size: 0.9em;
+                color: #777;
+            }
+
+            .post .excerpt {
+                font-size: 0.9em;
+                color: #444;
+            }
+
+
+        </style>
       </div>
 
     </section>
@@ -455,9 +499,12 @@
       }
 
       console.log("here");
+
       runFetch();
       function runFetch()
       {
+        const postGrid = document.getElementById('postGrid');
+              postGrid.innerHTML = ''; // Clear existing posts
           // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,_embedded.wp:featuredmedia&_embed')
           // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,featured_media')
           fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_embed')
@@ -465,11 +512,28 @@
           .then(data => {
               data.forEach(post => {
                   const title = post.title.rendered;
-                  const date = post.date;
+                  const date = new Date(post.date).toLocaleDateString('en-GB', {
+                      day: '2-digit', month: 'long', year: 'numeric'
+                  });
                   const excerpt = post.excerpt.rendered;
                   const link = post.link;
-                  const featuredImage = post._embedded['wp:featuredmedia'][0].source_url;
-                  console.log(featuredImage);
+                  const media = post._embedded?.['wp:featuredmedia']?.[0]?.media_details?.sizes;
+                  const featuredImage = media?.medium?.source_url || media?.thumbnail?.source_url || post._embedded?.['wp:featuredmedia']?.[0]?.source_url || '';
+
+
+                  const postElement = document.createElement('div');
+                  postElement.classList.add('post');
+
+                  postElement.innerHTML = `
+                      <a href="${link}" target="_blank">
+                          <img src="${featuredImage}" alt="${title}" loading="lazy">
+                      </a>
+                      <h3><a href="${link}" target="_blank">${title}</a></h3>
+                      <div class="date">${date}</div>
+                      <div class="excerpt">${excerpt}</div>
+                  `;
+
+                  postGrid.appendChild(postElement);
               });
           });
 
