@@ -48,10 +48,29 @@ h1
   font-size: 113px;
 }
 
+.sec-heading
+{
+  font-size: 66px;
+}
+
 .hero
 {
-  height: 100vh;
+}
+
+.work, .blog, .contact
+{
+
+}
+
+.bblue
+{
   background-color: var(--darkblue);
+
+}
+
+.h100
+{
+  height: 100vh;
 }
 
 p

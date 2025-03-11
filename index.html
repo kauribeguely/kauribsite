@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <section class="hero">
+    <section class="hero h100 bblue">
       <div class="fixed-width">
         <div class="hero-left">
           <h1 class="hero-heading">Web Developer & AR Creator</h1>
@@ -24,6 +24,38 @@
           <canvas id="myCanvas"></canvas>
         </div>
       </div>
+    </section>
+    <section class="goal">
+      <div class="fixed-width">
+
+        <h2 class="sec-heading">Goals</h2>
+
+      </div>
+
+    </section>
+    <section class="work h100 bblue">
+      <div class="fixed-width">
+
+        <h2 class="sec-heading">Work</h2>
+
+      </div>
+
+    </section>
+    <section class="blog h100 bblue">
+      <div class="fixed-width">
+
+        <h2 class="sec-heading">Blog</h2>
+
+      </div>
+
+    </section>
+    <section class="contact h100 bblue">
+      <div class="fixed-width">
+
+        <h2 class="sec-heading">Contact</h2>
+
+      </div>
+
     </section>
 
 
@@ -420,6 +452,49 @@
           changeScreenTexture(imageArray[imageIndex]);
           imageIndex = (imageIndex + 1) % imageArray.length; // Cycle through images
         }, switchTime);
+      }
+
+      console.log("here");
+      runFetch();
+      function runFetch()
+      {
+        // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_embed')
+          // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,_embedded.wp:featuredmedia&_embed')
+          fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,featured_media')
+          .then(response => response.json())
+          .then(data => {
+              data.forEach(post => {
+                  const title = post.title.rendered;
+                  const date = post.date;
+                  const excerpt = post.excerpt.rendered;
+                  const link = post.link;
+                  let featuredImage;
+                  fetchFeaturedImage(post.featured_media, post.id);
+                  // const featuredImage = post._embedded['wp:featuredmedia'] ? post._embedded['wp:featuredmedia'][0].source_url : '';
+                  // fetch(`https://kaurib.com/blog/wp-json/wp/v2/media/${post.featured_media}`)
+                  //   .then(res => res.json())
+                  //   .then(media =>
+                  //   {
+                  //     console.log(media.source_url);
+                  //     featuredImage = media.source_url;
+                  //   }).catch(err => console.error('Error fetching media:', err));
+                  // const featuredImage = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+                  console.log(post);
+                  // Create and append HTML elements to display the post data
+                  // ...
+              });
+          });
+
+      }
+
+      function fetchFeaturedImage(mediaId, postId) {
+        fetch(`https://kaurib.com/blog/wp-json/wp/v2/media/${mediaId}`)
+          .then(response => response.json())
+          .then(media => {
+            console.log(`Post ID: ${postId}, Featured Image: ${media.source_url}`);
+            // You can now use media.source_url in your UI
+          })
+          .catch(error => console.error(`Error fetching media for post ${postId}:`, error));
       }
     </script>
 </body>
