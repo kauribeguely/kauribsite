@@ -51,6 +51,8 @@ h1
 .sec-heading
 {
   font-size: 66px;
+  rotate: -4deg;
+  transform: skew(-5deg, 0deg);
 }
 
 .hero
@@ -75,7 +77,7 @@ h1
 
 p
 {
-  font-family: 'Josefin', sans-serif;
+  font-family: 'Josefin', verdana, sans-serif;
   /* text-transform: uppercase;
   font-weight: normal; */
   line-height: 1.8em;
@@ -197,4 +199,14 @@ section {
 .flex-column
 {
   flex-direction: column;
+}
+
+.josecaps
+{
+  font-family: "Josefin";
+  color: var(--yorange);
+}
+
+.blog .sec-heading {
+    margin-bottom: 10px;
 }

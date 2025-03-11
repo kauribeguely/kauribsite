@@ -45,6 +45,8 @@
       <div class="fixed-width flex-column">
 
         <h2 class="sec-heading">Blog</h2>
+        <h3 class="josecaps">web dev • creative code • inspiration • productivity</h3>
+        <p class="">Where I share my learning and favourite thoughts. Hoping to help people stick to their goals but at the very least serves as a small digital legacy.</p>
         <div class="post-grid" id="postGrid"></div>
 
         <style>
@@ -71,12 +73,12 @@
                 background-color: #f0f0f0; /* Placeholder background */
             }
 
-            .post h3 a:a
+            .post h3 a {
                 font-size: 1.2em;
-                color: var(--yorange);!;!i;!;
+                color: var(--yorange);
                 text-align: 10px 0;
-                text-decoration: none!important;!importan;!importa;!import;!impor;!impo;!imp;!im;!i;!;
-            }
+                text-decoration: none!important;
+              }
 
             .post .date {
                 font-size: 0.9em;
@@ -507,6 +509,7 @@
               postGrid.innerHTML = ''; // Clear existing posts
           // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,_embedded.wp:featuredmedia&_embed')
           // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,featured_media')
+          // fetch('https://friendswithdignity.org.au/blog/wp-json/wp/v2/posts?per_page=4&_embed')
           fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_embed')
           .then(response => response.json())
           .then(data => {
