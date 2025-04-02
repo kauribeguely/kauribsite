@@ -21,7 +21,7 @@
           </div>
 
           <!-- <div id="loadingMessage">Loading Three.js...</div> -->
-          <canvas id="myCanvas"></canvas>
+          <canvas id="heroCanvas"></canvas>
         </div>
       </div>
     </section>
@@ -42,6 +42,7 @@
 
     </section>
     <section class="blog h100 bblue">
+      <!-- load this later -->
       <div class="fixed-width flex-column">
 
         <h2 class="sec-heading">Blog</h2>
@@ -83,6 +84,7 @@
             .post .date {
                 font-size: 0.9em;
                 color: #777;
+                font-family: 'Josefin';
             }
 
             .post .excerpt {
@@ -97,7 +99,7 @@
     </section>
     <section class="contact h100 bblue">
       <div class="fixed-width">
-
+        <canvas id='contactCanvas'></canvas>
         <h2 class="sec-heading">Contact</h2>
 
       </div>
@@ -266,7 +268,7 @@
 
 
           // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
-          const canvas = document.getElementById('myCanvas');
+          const canvas = document.getElementById('heroCanvas');
           canvas.style.display = 'block';
 
           const scene = new THREE.Scene();
@@ -292,6 +294,7 @@
               cursor.scale.set(0.1, 0.1, 0.1);
 
               loadTexture('code3.jpg'); //preloads
+              // export{}
           });
           // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
 
@@ -502,6 +505,8 @@
 
       console.log("here");
 
+
+      // delay this, w/ blog section
       runFetch();
       function runFetch()
       {
@@ -543,5 +548,53 @@
       }
 
     </script>
+
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+        // When Three.js is loaded...
+        let phone;
+        let allModels;
+        // const textureLoader = new THREE.TextureLoader();
+        const loader = new GLTFLoader();
+        async function init() {
+
+
+
+          // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
+          const canvas = document.getElementById('heroCanvas');
+          canvas.style.display = 'block';
+
+          const scene = new THREE.Scene();
+          // loader.load('all2.glb', function (gltf) {
+          loader.load('a.glb', function (gltf) {
+          // loader.load('allDev.glb', function (gltf) {
+              scene.add(gltf.scene);
+              allModels = gltf.scene;
+              allModels.rotation.x = rad(-15);
+              // cursor = gltf.scene.children[0].children.find(child => child.name === 'cursor');
+              cursor = gltf.scene.children.find(child => child.name === 'cursor');
+              phone = gltf.scene.children.find(child => child.name === 'phone');
+              document.querySelector('.code-loading').style.display = 'none'; // Hide loading message
+
+              // Find the screenMat material
+              allModels.traverse(function (child) {
+                  if (child.isMesh && child.material.name === 'screenMat') {
+                      screenMaterial = child.material;
+
+                      // printMaterialProperties(screenMaterial);
+                  }
+              });
+              cursor.scale.set(0.1, 0.1, 0.1);
+
+              loadTexture('code3.jpg'); //preloads
+              // export{}
+          });
+          // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        </script>
+
+
 </body>
 </html>
