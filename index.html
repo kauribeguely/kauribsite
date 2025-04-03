@@ -3,108 +3,116 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hero Section</title>
+  <title>Kauri Beguely - Website Developer/Designer</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <section class="hero h100 bblue">
-      <div class="fixed-width">
-        <div class="hero-left">
-          <h1 class="hero-heading">Web Developer & AR Creator</h1>
-          <p class="hero-subtitle">A web design/developer with a passion for 3D & interactive experiences. </p>
-          <button class="hero-button">Contact</button>
+  <section class="hero h100 bblue">
+    <div class="fixed-width">
+      <div class="hero-left">
+        <h1 class="hero-heading">Web Developer & AR Creator</h1>
+        <p class="hero-subtitle">A web design/developer with a passion for 3D & interactive experiences. </p>
+        <button class="hero-button">Contact</button>
+      </div>
+      <div class="hero-right">
+        <div class='code-loading'>
+
+          <p id="codingMessage">Loading the spice...</p>
         </div>
-        <div class="hero-right">
-          <div class='code-loading'>
 
-            <p id="codingMessage">Loading the spice...</p>
-          </div>
-
-          <!-- <div id="loadingMessage">Loading Three.js...</div> -->
-          <canvas id="heroCanvas"></canvas>
-        </div>
+        <!-- <div id="loadingMessage">Loading Three.js...</div> -->
+        <canvas id="heroCanvas"></canvas>
       </div>
-    </section>
-    <section class="goal">
-      <div class="fixed-width">
+    </div>
+  </section>
+  <section class="work h100">
+    <div class="fixed-width">
 
-        <h2 class="sec-heading">Goals</h2>
+      <h2 class="sec-heading">Work</h2>
 
-      </div>
+    </div>
 
-    </section>
-    <section class="work h100 bblue">
-      <div class="fixed-width">
+  </section>
+  <section class="about bblue">
+    <div class="fixed-width">
 
-        <h2 class="sec-heading">Work</h2>
+      <h2 class="sec-heading">About</h2>
 
-      </div>
+    </div>
 
-    </section>
-    <section class="blog h100 bblue">
-      <!-- load this later -->
-      <div class="fixed-width flex-column">
+  </section>
+  <section class="blog bblue">
+    <!-- load this later -->
+    <div class="fixed-width flex-column">
 
-        <h2 class="sec-heading">Blog</h2>
-        <h3 class="josecaps">web dev • creative code • inspiration • productivity</h3>
-        <p class="">Where I share my learning and favourite thoughts. Hoping to help people stick to their goals but at the very least serves as a small digital legacy.</p>
-        <div class="post-grid" id="postGrid"></div>
+      <h2 class="sec-heading">Blog</h2>
+      <h3 class="josecaps">web dev • creative code • inspiration • productivity</h3>
+      <p class="">Where I share my learning and favourite thoughts. Hoping to help people stick to their goals but at the very least serves as a small digital legacy.</p>
+      <div class="post-grid" id="postGrid"></div>
 
-        <style>
-            .post-grid {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 20px;
-                justify-content: center;
-                height: 600px;
+      <style>
+          .post-grid {
+              display: flex;
+              flex-wrap: wrap;
+              gap: 20px;
+              justify-content: center;
+              height: 600px;
+          }
+
+          .post {
+              width: 23%; /* 4 posts per row */
+              max-width: 300px;
+              display: flex;
+              flex-direction: column;
+              text-align: center;
+          }
+
+          .post img {
+              width: 100%;
+              aspect-ratio: 1 / 1; /* Makes the image square */
+              object-fit: cover;
+              background-color: #f0f0f0; /* Placeholder background */
+          }
+
+          .post h3 a {
+              font-size: 1.2em;
+              color: var(--yorange);
+              text-align: 10px 0;
+              text-decoration: none!important;
             }
 
-            .post {
-                width: 23%; /* 4 posts per row */
-                max-width: 300px;
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-            }
+          .post .date {
+              font-size: 0.9em;
+              color: #777;
+              font-family: 'Josefin';
+          }
 
-            .post img {
-                width: 100%;
-                aspect-ratio: 1 / 1; /* Makes the image square */
-                object-fit: cover;
-                background-color: #f0f0f0; /* Placeholder background */
-            }
-
-            .post h3 a {
-                font-size: 1.2em;
-                color: var(--yorange);
-                text-align: 10px 0;
-                text-decoration: none!important;
-              }
-
-            .post .date {
-                font-size: 0.9em;
-                color: #777;
-                font-family: 'Josefin';
-            }
-
-            .post .excerpt {
-                font-size: 0.9em;
-                color: #444;
-            }
+          .post .excerpt {
+              font-size: 0.9em;
+              color: #444;
+          }
 
 
-        </style>
-      </div>
+      </style>
+    </div>
 
-    </section>
-    <section class="contact h100 bblue">
-      <div class="fixed-width">
+  </section>
+  <section class="contact h100">
+    <div class="fixed-width">
+      <div class="left-col">
+
         <canvas id='contactCanvas'></canvas>
-        <h2 class="sec-heading">Contact</h2>
+
+      </div>
+      <div class="right-col">
+
+        <h2 class="sec-heading tblue">Get in touch</h2>
 
       </div>
 
-    </section>
+    </div>
+
+  </section>
 
 
     <script>
@@ -521,6 +529,53 @@
       }
 
       console.log("here");
+      document.addEventListener('DOMContentLoaded', () => {
+            // 1. Select all the section elements you want to observe
+            const sectionsToObserve = document.querySelectorAll('section');
+
+            // 2. Configuration options for the observer
+            const options = {
+                root: null, // Use the browser viewport as the root
+                rootMargin: '0px', // No margin around the viewport
+                threshold: 0.1     // Trigger when 10% of the section is visible
+            };
+
+            // 3. The callback function executed when intersection changes
+            const intersectionCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    // entry.isIntersecting is true if the element is intersecting
+                    if (entry.isIntersecting) {
+                        // Get the target element (the <section> that intersected)
+                        const targetSection = entry.target;
+
+                        // Log the section element itself to the console
+                        console.log("Observer triggered for section:", targetSection);
+
+                        // Optional: Log a more descriptive message using its heading or class
+                        // const heading = targetSection.querySelector('h2')?.textContent;
+                        // console.log(`Section "${heading || targetSection.className || 'Unknown'}" entered viewport.`);
+
+
+                        // Optional: If you want the trigger to happen only once per section
+                        // observer.unobserve(targetSection);
+
+                    } else {
+                        // Optional: Action when the element leaves the viewport
+                        // const targetSection = entry.target;
+                        // console.log("Section left viewport:", targetSection);
+                    }
+                });
+            };
+
+            // 4. Create the Intersection Observer instance
+            const observer = new IntersectionObserver(intersectionCallback, options);
+
+            // 5. Start observing each selected section element
+            sectionsToObserve.forEach(section => {
+                observer.observe(section);
+            });
+        });
+
 
 
       // delay this, w/ blog section
@@ -567,6 +622,7 @@
     </script>
 
 
+// delay this with contact section
     <script type="module">
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
