@@ -260,6 +260,7 @@
         ];
         let imageIndex = 0;
         let intervalId; // To store the interval ID
+        let camera, controls;
         const switchTime = 500;
         const textureLoader = new THREE.TextureLoader();
         const loader = new GLTFLoader();
@@ -278,6 +279,7 @@
               scene.add(gltf.scene);
               allModels = gltf.scene;
               allModels.rotation.x = rad(-15);
+              allModels.position.set(0, -0.2, 0.6);
               // cursor = gltf.scene.children[0].children.find(child => child.name === 'cursor');
               cursor = gltf.scene.children.find(child => child.name === 'cursor');
               phone = gltf.scene.children.find(child => child.name === 'phone');
@@ -309,9 +311,9 @@
               0.1,         // near
               1000         // far
           );
-          orthographicCamera.position.set(5, 5, 5);
-          orthographicCamera.lookAt(0, 0, 0);
-          let camera = orthographicCamera;
+          // orthographicCamera.position.set(5, 5, 5);
+          // orthographicCamera.lookAt(0, 0, 0);
+          camera = orthographicCamera;
 
 
           const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, });
@@ -331,11 +333,23 @@
           scene.add(amb);
 
           // Isometric Camera Setup
-          camera.position.set(5, 5, 5);
-          camera.lookAt(0, 0, 0);
+          camera.position.set(3, 4, 5);
+          camera.lookAt(0, 10, 0);
+          // camera.position.set(3.4688266655284203, 4.479790829614187, 4.869270951578658);
+          // camera.lookAt(-0.48063234330944404, 4.0179196405742234e-18, -1.402351458963457);
+
+          // camera.position.set(2.0641574386171655, 4.5269645479978715, 3.5315405476028237);
+          // camera.zoom = 1;
+          // camera.quaternion.set(-0.3546509164537978, 0.21842747103324003, 0.0855887907953248, 0.9050893471070678);
+          // camera.updateProjectionMatrix(); // <<< IMPORTANT! Call this after setting zoom/position/orientation.
+
+          // camera.position.set(2.7983762344477707, 4.7928310790080335, 3.6877588316749046);
+          // camera.zoom = 1;
+          // camera.quaternion.set(-0.32725047288487286, 0.26658341049623674, 0.09678519362490631, 0.9013728637693789);
+          // camera.updateProjectionMatrix();
 
           // Orbit Controls for interaction
-          const controls = new OrbitControls(camera, renderer.domElement);
+          controls = new OrbitControls(camera, renderer.domElement);
           controls.enableDamping = true; // Animate controls using damping
           controls.dampingFactor = 0.05;
           controls.screenSpacePanning = false;
@@ -448,7 +462,7 @@
           animate();
 
 
-      }
+      }//end init
 
 
       // Function to change the screenMat texture (emissive)
@@ -470,7 +484,10 @@
               console.error('screenMat material is not available.');
           }
       }
+
       init();
+
+
 
       //HELPER, DELETE PRE PUBLISH
 
@@ -589,7 +606,7 @@
                 //         // printMaterialProperties(screenMaterial);
                 //     }
                 // });
-                cursor.scale.set(0.1, 0.1, 0.1);
+                // cursor.scale.set(0.1, 0.1, 0.1);
 
                 // loadTexture('code3.jpg'); //preloads
                 // export{}
