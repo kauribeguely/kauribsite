@@ -170,7 +170,7 @@
 
   </section>
 
-
+  <!-- global script -->
     <script>
 
 
@@ -291,6 +291,16 @@
            }
            block.style.backgroundColor = color;
            return block;
+       }
+
+       function fadeInPosts()
+       {
+         // let allPosts = document.querySelector('.blog').querySelectorAll('.post');
+         let allPosts = document.querySelector('.blog').querySelectorAll('.opZero');
+         // postElement.classList.add('post', 'fadeIn');
+         allPosts.forEach(postElement => {
+              postElement.classList.add('fadeIn');
+          });
        }
   </script>
 
@@ -576,6 +586,7 @@
                             runBlogFetch();
                         } else if (className.includes('blog')) {
                             console.log("blog section entered viewport.");
+                            // fadeInPosts();
                             // Add your about-specific logic here
                         } else if (className.includes('contact')) {
                             console.log("contact section entered viewport.");
@@ -639,7 +650,8 @@
 
 
                   const postElement = document.createElement('div');
-                  postElement.classList.add('post', 'opZero');
+                  // postElement.classList.add('post', 'opZero');
+                  postElement.classList.add('post', 'fadeIn');
                   postElement.style = "--fade-delay: "+postCount*0.2+"s;"
 
                   postElement.innerHTML = `

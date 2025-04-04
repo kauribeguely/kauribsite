@@ -241,6 +241,7 @@ section {
 
 .fadeIn
 {
+  opacity: 0;  
   animation: fadeIn 1s ease forwards;
   animation-delay: var(--fade-delay, 0s);
 }
