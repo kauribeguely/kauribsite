@@ -92,6 +92,8 @@ p
 section {
     /* width: 100vw; */
     /* height: 100vh; */
+    padding-top: 50px;
+    padding-bottom: 50px;
     display: flex;
     justify-content: center; /* Center horizontally */
     align-items: center; /* Center vertically */
@@ -117,8 +119,8 @@ section {
 }
 
 .hero-left {
-padding-top: 50px;
-padding-bottom: 50px;
+/* padding-top: 50px;
+padding-bottom: 50px; */
 }
 
 .hero-heading {
@@ -230,4 +232,27 @@ section {
 .left-col, .right-col
 {
   width: 50%;
+}
+
+.opZero
+{
+  opacity: 0;
+}
+
+.fadeIn
+{
+  animation: fadeIn 1s ease forwards;
+  animation-delay: var(--fade-delay, 0s);
+}
+
+@keyframes fadeIn
+{
+  from
+  {
+    opacity: 0;
+  }
+  to
+  {
+    opacity: 1;
+  }
 }

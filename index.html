@@ -92,7 +92,7 @@
           .placeImage
           {
             filter: blur(4px);
-            animation: opPulse 1s ease-in-out alternate infinite;
+            animation: opPulse 0.6s ease-in-out alternate infinite;
           }
 
           .post-grid {
@@ -144,7 +144,7 @@
             }
             to
             {
-              opacity: 0.6;
+              opacity: 0.4;
             }
           }
 
@@ -432,46 +432,6 @@
             });
           }
 
-
-
-          // setTimeout(function() {
-          //     changeScreenTexture('bentS.jpg'); // Replace with your image's path
-          // }, 2000); // Change texture after 2 seconds (for example)
-
-          // const lineHeight = 1;
-          // const blockHeight = 0.5;
-          // const blockDepth = 0.5;
-          // const blockSpacing = 0.2;
-          // const maxLineWidth = 8;
-          //
-          // let currentY = lineHeight / 2;
-          // let currentX = -maxLineWidth / 2;
-          //
-          // function createBlock() {
-          //     const blockWidth = Math.random() * 2 + 0.5;
-          //     const geometry = new THREE.BoxGeometry(blockWidth, blockHeight, blockDepth);
-          //     const material = new THREE.MeshStandardMaterial({ color: 0xf1f1f1 });
-          //     // const material = new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff });
-          //     const block = new THREE.Mesh(geometry, material);
-          //
-          //     block.position.x = currentX + blockWidth / 2;
-          //     block.position.y = currentY;
-          //     scene.add(block);
-          //
-          //     currentX += blockWidth + blockSpacing;
-          //     if (currentX > maxLineWidth / 2) {
-          //         currentX = -maxLineWidth / 2;
-          //         currentY -= lineHeight;
-          //     }
-          // }
-          //
-          // const numLines = 10;
-          // const blocksPerLine = 15;
-          //
-          // for (let i = 0; i < numLines * blocksPerLine; i++) {
-          //     createBlock();
-          // }
-
           document.onmousemove = function(event) {
               // Get mouse coordinates
               let mouseX = event.clientX;
@@ -666,6 +626,7 @@
           .then(response => response.json())
           .then(data => {
             postGrid.innerHTML = '';
+            let postCount = 0;
               data.forEach(post => {
                   const title = post.title.rendered;
                   const date = new Date(post.date).toLocaleDateString('en-GB', {
@@ -678,7 +639,8 @@
 
 
                   const postElement = document.createElement('div');
-                  postElement.classList.add('post');
+                  postElement.classList.add('post', 'opZero');
+                  postElement.style = "--fade-delay: "+postCount*0.2+"s;"
 
                   postElement.innerHTML = `
                       <a href="${link}" target="_blank">
@@ -690,6 +652,7 @@
                   `;
 
                   postGrid.appendChild(postElement);
+                  postCount++;
               });
           });
 
@@ -697,8 +660,7 @@
 
     </script>
 
-
-// delay this with contact section
+/** delay with contact section **/
     <script type="module">
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -726,6 +688,8 @@
                 // cursor = gltf.scene.children[0].children.find(child => child.name === 'cursor');
                 // cursor = gltf.scene.children.find(child => child.name === 'cursor');
                 phone = gltf.scene.children.find(child => child.name === 'phone');
+                phone.scale.set(2.5, 2.5, 2.5);
+                phone.position.set(0,0,0);
                 scene.add(phone);
 
                 // document.querySelector('.code-loading').style.display = 'none'; // Hide loading message
@@ -753,8 +717,8 @@
                 0.1,         // near
                 1000         // far
             );
-            orthographicCamera.position.set(5, 5, 5);
-            orthographicCamera.lookAt(0, 0, 0);
+            // orthographicCamera.position.set(2, 5, 5);
+            // orthographicCamera.lookAt(0, 0, 0);
             let camera = orthographicCamera;
 
 
@@ -799,5 +763,5 @@
         </script>
 
 
+        </html>
 </body>
-</html>
