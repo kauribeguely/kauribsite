@@ -48,9 +48,53 @@
       <h2 class="sec-heading">Blog</h2>
       <h3 class="josecaps">web dev • creative code • inspiration • productivity</h3>
       <p class="">Where I share my learning and favourite thoughts. Hoping to help people stick to their goals but at the very least serves as a small digital legacy.</p>
-      <div class="post-grid" id="postGrid"></div>
+      <div class="post-grid" id="postGrid">
+        <div class="post">
+            <!-- <a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank"> -->
+                <img class="placeImage" src="https://kaurib.com/blog/wp-content/uploads/2025/03/lofthumb-150x150.jpg" alt="Case Study: LOF Hostel" loading="lazy">
+            <!-- </a> -->
+            <h3 class="date placeImage"><a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank">Case Study: LOF Hostel</a></h3>
+            <div class="date placeImage">25 December 0000</div>
+            <div class="excerpt placeImage"><p>Talent may open doors, but hard work ensures you walk through them. Persistence, not potential, shapes your destiny. Put in the hours, and watch your efforts transform into tangible results. Never quit.</p>
+            </div>
+        </div>
+        <div class="post">
+            <!-- <a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank"> -->
+                <img class="placeImage" src="https://kaurib.com/blog/wp-content/uploads/2025/03/lofthumb-150x150.jpg" alt="Case Study: LOF Hostel" loading="lazy">
+            <!-- </a> -->
+            <h3 class="date placeImage"><a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank">Case Study: LOF Hostel</a></h3>
+            <div class="date placeImage">25 December 0000</div>
+            <div class="excerpt placeImage"><p>Talent may open doors, but hard work ensures you walk through them. Persistence, not potential, shapes your destiny. Put in the hours, and watch your efforts transform into tangible results. Never quit.</p>
+            </div>
+        </div>
+        <div class="post">
+            <!-- <a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank"> -->
+                <img class="placeImage" src="https://kaurib.com/blog/wp-content/uploads/2025/03/lofthumb-150x150.jpg" alt="Case Study: LOF Hostel" loading="lazy">
+            <!-- </a> -->
+            <h3 class="date placeImage"><a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank">Case Study: LOF Hostel</a></h3>
+            <div class="date placeImage">25 December 0000</div>
+            <div class="excerpt placeImage"><p>Talent may open doors, but hard work ensures you walk through them. Persistence, not potential, shapes your destiny. Put in the hours, and watch your efforts transform into tangible results. Never quit.</p>
+            </div>
+        </div>
+        <div class="post">
+            <!-- <a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank"> -->
+                <img class="placeImage" src="https://kaurib.com/blog/wp-content/uploads/2025/03/lofthumb-150x150.jpg" alt="Case Study: LOF Hostel" loading="lazy">
+            <!-- </a> -->
+            <h3 class="date placeImage"><a href="https://kaurib.com/blog/case-study-surf-hostel-lof/" target="_blank">Case Study: LOF Hostel</a></h3>
+            <div class="date placeImage">25 December 0000</div>
+            <div class="excerpt placeImage"><p>Talent may open doors, but hard work ensures you walk through them. Persistence, not potential, shapes your destiny. Put in the hours, and watch your efforts transform into tangible results. Never quit.</p>
+            </div>
+        </div>
+      </div>
 
       <style>
+
+          .placeImage
+          {
+            filter: blur(4px);
+            animation: opPulse 1s ease-in-out alternate infinite;
+          }
+
           .post-grid {
               display: flex;
               flex-wrap: wrap;
@@ -90,6 +134,18 @@
           .post .excerpt {
               font-size: 0.9em;
               color: #444;
+          }
+
+          @keyframes opPulse
+          {
+            from
+            {
+              opacity: 1.0;
+            }
+            to
+            {
+              opacity: 0.6;
+            }
           }
 
 
@@ -547,10 +603,29 @@
                     if (entry.isIntersecting) {
                         // Get the target element (the <section> that intersected)
                         const targetSection = entry.target;
+                        const className = targetSection.className;
+                        if (className.includes('hero')) {
+                            console.log("hero section entered viewport.");
+                            // no need for this?
+                        } else if (className.includes('work')) {
+                            console.log("work section entered viewport.");
+                            // trigger preload of about section
+                        } else if (className.includes('about')) {
+                            console.log("about section entered viewport.");
+                            // trigger fetch etc of blog section
+                            runBlogFetch();
+                        } else if (className.includes('blog')) {
+                            console.log("blog section entered viewport.");
+                            // Add your about-specific logic here
+                        } else if (className.includes('contact')) {
+                            console.log("contact section entered viewport.");
+                            // Add your about-specific logic here
+                        } else {
+                            console.log("Unknown section entered viewport.");
+                            // Add a default action or handle unknown sections
+                        }
 
-                        // Log the section element itself to the console
-                        console.log("Observer triggered for section:", targetSection);
-
+                        observer.unobserve(targetSection);
                         // Optional: Log a more descriptive message using its heading or class
                         // const heading = targetSection.querySelector('h2')?.textContent;
                         // console.log(`Section "${heading || targetSection.className || 'Unknown'}" entered viewport.`);
@@ -579,17 +654,18 @@
 
 
       // delay this, w/ blog section
-      runFetch();
-      function runFetch()
+      // runFetch();
+      function runBlogFetch()
       {
         const postGrid = document.getElementById('postGrid');
-              postGrid.innerHTML = ''; // Clear existing posts
+              // postGrid.innerHTML = ''; // Clear existing posts
           // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,_embedded.wp:featuredmedia&_embed')
           // fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_fields=id,title,date,excerpt,link,featured_media')
           // fetch('https://friendswithdignity.org.au/blog/wp-json/wp/v2/posts?per_page=4&_embed')
           fetch('https://kaurib.com/blog/wp-json/wp/v2/posts?per_page=4&_embed')
           .then(response => response.json())
           .then(data => {
+            postGrid.innerHTML = '';
               data.forEach(post => {
                   const title = post.title.rendered;
                   const date = new Date(post.date).toLocaleDateString('en-GB', {
