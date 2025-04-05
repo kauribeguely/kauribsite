@@ -26,8 +26,9 @@
     </div>
   </section>
   <section class="work h100">
+    <canvas id="workCanvas"></canvas>
+    <h2 class="sec-heading tblue">Work</h2>
     <div class="fixed-width">
-      <h2 class="sec-heading tblue">Work</h2>
 
       <div class="left-col">
         <!-- empty -->
@@ -92,6 +93,8 @@
        });
 
     </script>
+
+
 
   </section>
   <section class="about bblue">
@@ -850,6 +853,111 @@
           init();
           // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
         </script>
+
+        // work script
+        <script type="module">
+            import * as THREE from 'three';
+            import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+            import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+            // When Three.js is loaded...
+            let phone;
+            let allModels;
+            // const textureLoader = new THREE.TextureLoader();
+            const loader = new GLTFLoader();
+            async function init() {
+
+
+
+                // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
+                const canvas = document.getElementById('workCanvas');
+                canvas.style.display = 'block';
+
+                const scene = new THREE.Scene();
+                // loader.load('all2.glb', function (gltf) {
+                loader.load('a.glb', function (gltf) {
+                // loader.load('allDev.glb', function (gltf) {
+                    allModels = gltf.scene;
+                    // allModels.rotation.x = rad(-15);
+                    // const cursor = gltf.scene.children[0].children.find(child => child.name === 'cursor');
+                    const cursor = gltf.scene.children.find(child => child.name === 'cursor');
+
+
+                    phone = gltf.scene.children.find(child => child.name === 'phone');
+                    // phone.scale.set(2.5, 2.5, 2.5);
+                    // phone.position.set(0,0,0);
+                    gltf.scene.remove(phone);
+                    gltf.scene.remove(cursor);
+                    scene.add(gltf.scene);
+
+                    // document.querySelector('.code-loading').style.display = 'none'; // Hide loading message
+
+                    // Find the screenMat material
+                    // allModels.traverse(function (child) {
+                    //     if (child.isMesh && child.material.name === 'screenMat') {
+                    //         screenMaterial = child.material;
+                    //
+                    //         // printMaterialProperties(screenMaterial);
+                    //     }
+                    // });
+                    // cursor.scale.set(0.1, 0.1, 0.1);
+
+                    // loadTexture('code3.jpg'); //preloads
+                    // export{}
+                });
+
+                const aspect = canvas.clientWidth / canvas.clientHeight;
+                const orthographicCamera = new THREE.OrthographicCamera(
+                    -3 * aspect, // left
+                    3 * aspect,  // right
+                    3,           // top
+                    -3,          // bottom
+                    0.1,         // near
+                    1000         // far
+                );
+                // orthographicCamera.position.set(2, 5, 5);
+                // orthographicCamera.lookAt(0, 0, 0);
+                let camera = orthographicCamera;
+
+
+                const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, });
+                renderer.setClearColor(0x000000, 0);
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+                // renderer.outputEncoding = THREE.sRGBEncoding;
+
+                const directionalLight = new THREE.DirectionalLight(0xffffff, 3); // Color (white) and intensity (1)
+                directionalLight.position.set(-1, 2, 0); // Position of the light source
+                scene.add(directionalLight);
+                // Helper to visualize the light's direction
+                // const helper = new THREE.DirectionalLightHelper(directionalLight, 1);
+                // scene.add(helper);
+
+                // const amb = new THREE.AmbientLight(0xffffff, 1.5); // Color (white) and intensity (1)
+                const amb = new THREE.AmbientLight(0x659df7, 1.5); // Color (white) and intensity (1)
+                scene.add(amb);
+
+                // Isometric Camera Setup
+                camera.position.set(-5, 5, 5);
+                camera.lookAt(0, 0, 0);
+
+                // Orbit Controls for interaction
+                const controls = new OrbitControls(camera, renderer.domElement);
+                controls.enableDamping = true; // Animate controls using damping
+                controls.dampingFactor = 0.05;
+                controls.screenSpacePanning = false;
+                controls.minDistance = 2;
+                controls.maxDistance = 20;
+
+                function animate() {
+                    requestAnimationFrame(animate);
+                    controls.update(); // Update OrbitControls
+                    renderer.render(scene, camera);
+                }
+
+                animate();
+              }
+              init();
+              // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+          </script>
 
 
         </html>
