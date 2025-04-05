@@ -59,40 +59,6 @@
 
     </div>
 
-    <script>
-
-      const workSlides = document.getElementById('workSlides');
-       const slides = workSlides.querySelectorAll('.slide');
-       let currentIndex = 0;
-
-       // Initially show only the first slide
-       slides.forEach((slide, index) => {
-           slide.style.display = index === currentIndex ? 'block' : 'none';
-       });
-
-       document.addEventListener('keydown', (event) => {
-           if (event.key === 'ArrowRight') {
-               // Hide the current slide
-               slides[currentIndex].style.display = 'none';
-
-               // Move to the next slide
-               currentIndex = (currentIndex + 1) % slides.length;
-
-               // Show the next slide
-               slides[currentIndex].style.display = 'block';
-           } else if (event.key === 'ArrowLeft') {
-               // Hide the current slide
-               slides[currentIndex].style.display = 'none';
-
-               // Move to the previous slide
-               currentIndex = (currentIndex - 1 + slides.length) % slides.length;
-
-               // Show the previous slide
-               slides[currentIndex].style.display = 'block';
-           }
-       });
-
-    </script>
 
 
 
@@ -862,11 +828,15 @@
             // When Three.js is loaded...
             let phone;
             let allModels;
+            let scene1, scene2;
             // const textureLoader = new THREE.TextureLoader();
             const loader = new GLTFLoader();
             async function init() {
 
 
+                scene1 = new THREE.Group();
+                scene2 = new THREE.Group();
+                scene2.visible = false;
 
                 // document.getElementById('loadingMessage').style.display = 'none'; // Hide loading message
                 const canvas = document.getElementById('workCanvas');
@@ -885,9 +855,16 @@
                     phone = gltf.scene.children.find(child => child.name === 'phone');
                     // phone.scale.set(2.5, 2.5, 2.5);
                     // phone.position.set(0,0,0);
-                    gltf.scene.remove(phone);
-                    gltf.scene.remove(cursor);
-                    scene.add(gltf.scene);
+
+                    // gltf.scene.remove(phone);
+                    // gltf.scene.remove(cursor);
+                    scene1.add(phone);
+
+                    scene2.add(gltf.scene);
+                    // scene.add(gltf.scene);
+
+                    scene.add(scene1);
+                    scene.add(scene2);
 
                     // document.querySelector('.code-loading').style.display = 'none'; // Hide loading message
 
@@ -956,6 +933,44 @@
                 animate();
               }
               init();
+
+
+
+              const workSlides = document.getElementById('workSlides');
+               const slides = workSlides.querySelectorAll('.slide');
+               let currentIndex = 0;
+
+               // Initially show only the first slide
+               slides.forEach((slide, index) => {
+                   slide.style.display = index === currentIndex ? 'block' : 'none';
+               });
+
+               document.addEventListener('keydown', (event) => {
+                   if (event.key === 'ArrowRight') {
+                       // Hide the current slide
+                       slides[currentIndex].style.display = 'none';
+
+                       // Move to the next slide
+                       currentIndex = (currentIndex + 1) % slides.length;
+
+                       // Show the next slide
+                       slides[currentIndex].style.display = 'block';
+
+
+                       scene1.visible = !scene1.visible;
+                       scene2.visible = !scene2.visible;
+
+                   } else if (event.key === 'ArrowLeft') {
+                       // Hide the current slide
+                       slides[currentIndex].style.display = 'none';
+
+                       // Move to the previous slide
+                       currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+
+                       // Show the previous slide
+                       slides[currentIndex].style.display = 'block';
+                   }
+               });
               // const camera = new THREE.PerspectiveCamera(45, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
           </script>
 
