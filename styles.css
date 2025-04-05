@@ -64,6 +64,11 @@ h1
 
 }
 
+.tyorange
+{
+  color: var(--yorange);  
+}
+
 .bblue
 {
   background-color: var(--darkblue);
@@ -132,7 +137,8 @@ section {
     transform: skew(-5deg, 0deg);
 }
 
-.hero-subtitle {
+/* .hero-subtitle { */
+p {
     font-size: 14px;
     /* margin-bottom: 2rem; */
 }
@@ -241,7 +247,7 @@ section {
 
 .fadeIn
 {
-  opacity: 0;  
+  opacity: 0;
   animation: fadeIn 1s ease forwards;
   animation-delay: var(--fade-delay, 0s);
 }
