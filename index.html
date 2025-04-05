@@ -58,6 +58,41 @@
 
     </div>
 
+    <script>
+
+      const workSlides = document.getElementById('workSlides');
+       const slides = workSlides.querySelectorAll('.slide');
+       let currentIndex = 0;
+
+       // Initially show only the first slide
+       slides.forEach((slide, index) => {
+           slide.style.display = index === currentIndex ? 'block' : 'none';
+       });
+
+       document.addEventListener('keydown', (event) => {
+           if (event.key === 'ArrowRight') {
+               // Hide the current slide
+               slides[currentIndex].style.display = 'none';
+
+               // Move to the next slide
+               currentIndex = (currentIndex + 1) % slides.length;
+
+               // Show the next slide
+               slides[currentIndex].style.display = 'block';
+           } else if (event.key === 'ArrowLeft') {
+               // Hide the current slide
+               slides[currentIndex].style.display = 'none';
+
+               // Move to the previous slide
+               currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+
+               // Show the previous slide
+               slides[currentIndex].style.display = 'block';
+           }
+       });
+
+    </script>
+
   </section>
   <section class="about bblue">
     <div class="fixed-width">
