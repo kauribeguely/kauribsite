@@ -132,7 +132,7 @@ section {
 .hero-heading {
     /* font-size: 2.5rem; */
     /* margin-bottom: 1rem; */
-    margin: 10px 0px 32px;
+    margin: 0px 0px 32px;
     line-height: 95px;
     rotate: -4deg;
     transform: skew(-5deg, 0deg);
@@ -144,7 +144,18 @@ p {
     /* margin-bottom: 2rem; */
 }
 
-.hero-button {
+.hero-pretitle
+{
+  font-family: 'LRed', sans-serif;
+  transform: skew(-5deg, 0deg);
+  rotate: -4deg;
+  text-transform: uppercase;
+  font-size: 33px;
+  margin-bottom: 0px;
+}
+
+.hero-button
+{
     padding: 0.8rem 1.5rem;
     background-color: var(--yorange);
     color: var(--darkblue);
@@ -259,7 +270,7 @@ p {
   width: 100vw;
   background gray;
   position: absolute;
-  background: gray;
+  /* background: gray; */
   z-index: 0;
   /* display: none; */
 }
