@@ -8,8 +8,10 @@
 </head>
 <body>
   <header>
+    <div class = "fixed-width" style="justify-content: space-between">
     <div class="logo">
-      <a href="/">Your Logo Here</a>
+      <!-- <a href="/"></a> -->
+      <img src="https://kaurib.com/blog/wp-content/uploads/2024/09/akacodeslogo55.png">
     </div>
     <nav>
       <ul>
@@ -19,12 +21,13 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+  </div>
     <style>
     header {
       position: fixed;
       width: 100vw;
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       padding: 20px; /* Adjust as needed */
       background-color: #f8f8f8; /* Optional background color */
@@ -49,6 +52,12 @@
 
       nav ul li {
       margin-left: 20px; /* Spacing between menu items */
+      font-family: "Josefin", Sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-style: italic;
+      letter-spacing: 7px;
       }
 
       nav ul li:first-child {
@@ -57,13 +66,13 @@
 
       nav ul li a {
       text-decoration: none;
-      color: #555; /* Menu item color */
+      color: var(--darkblue); /* Menu item color */
       font-size: 1em; /* Adjust menu item font size */
       transition: color 0.3s ease; /* Smooth hover effect */
       }
 
       nav ul li a:hover {
-      color: #007bff; /* Hover color */
+      color: var(--yorange); /* Hover color */
       }
 
       /* Responsive adjustments (optional) */
@@ -449,11 +458,11 @@
 
 
 
-
+  <!-- hero script -->
     <script type="module">
         // When Three.js is loaded...
         import { THREE, OrbitControls, GLTFLoader } from './share.js';
-        
+
         let cursor, phone;
         let allModels;
         let screenMaterial;
@@ -1007,16 +1016,17 @@
                 camera.lookAt(0, 0, 0);
 
                 // Orbit Controls for interaction
-                const controls = new OrbitControls(camera, renderer.domElement);
-                controls.enableDamping = true; // Animate controls using damping
-                controls.dampingFactor = 0.05;
-                controls.screenSpacePanning = false;
-                controls.minDistance = 2;
-                controls.maxDistance = 20;
+
+                // const controls = new OrbitControls(camera, renderer.domElement);
+                // controls.enableDamping = true; // Animate controls using damping
+                // controls.dampingFactor = 0.05;
+                // controls.screenSpacePanning = false;
+                // controls.minDistance = 2;
+                // controls.maxDistance = 20;
 
                 function animate() {
                     requestAnimationFrame(animate);
-                    controls.update(); // Update OrbitControls
+                    // controls.update(); // Update OrbitControls
                     renderer.render(scene, camera);
                 }
 

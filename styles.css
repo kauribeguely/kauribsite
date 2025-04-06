@@ -48,6 +48,10 @@ h1
   font-size: 113px;
 }
 
+section#hero {
+    padding-top: 150px;
+}
+
 .sec-heading
 {
   font-size: 66px;
