@@ -30,10 +30,22 @@
       justify-content: center;
       align-items: center;
       padding: 20px; /* Adjust as needed */
-      background-color: #f8f8f8; /* Optional background color */
+      background-color: white; /* Optional background color */
       box-sizing: border-box;
       /* Add any other global header styles here */
       z-index: 10;
+      border-bottom: 1px solid var(--darkblue)
+    }
+
+    button
+    {
+      background: var(--yorange);
+      font-family: "Josefin", Sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-style: italic;
+      letter-spacing: 7px;
     }
 
       .logo a {
@@ -224,6 +236,8 @@
             </div>
         </div>
       </div>
+      <button>Visit Blog</button>
+    </div>
 
       <style>
 
@@ -237,7 +251,7 @@
               display: flex;
               flex-wrap: wrap;
               gap: 20px;
-              justify-content: center;
+              justify-content: space-between;
               height: 600px;
           }
 
@@ -288,7 +302,6 @@
 
 
       </style>
-    </div>
 
   </section>
   <section id="contact" class="h100">

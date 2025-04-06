@@ -151,15 +151,8 @@ p {
 
 .hero-button
 {
-    padding: 0.8rem 1.5rem;
-    background-color: var(--yorange);
     color: var(--darkblue);
-    border: none;
-    cursor: pointer;
     width: 411px;
-    font-family: 'Josefin', sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 1.2em;
     margin-top: 65px;
 }
 
