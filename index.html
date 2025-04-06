@@ -302,6 +302,14 @@
   </section>
 
   <!-- global script -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
+    }
+  }
+  </script>
     <script>
 
 
@@ -433,25 +441,19 @@
               postElement.classList.add('fadeIn');
           });
        }
+
+
   </script>
 
+  <script type="module"src="share.js"></script>
 
-  <script type="importmap">
-        {
-            "imports": {
-                "three": "https://cdn.jsdelivr.net/npm/three@0.174.0/build/three.module.js",
-                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.174.0/examples/jsm/"
-            }
-        }
-    </script>
 
 
 
     <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
         // When Three.js is loaded...
+        import { THREE, OrbitControls, GLTFLoader } from './share.js';
+        
         let cursor, phone;
         let allModels;
         let screenMaterial;
@@ -806,9 +808,10 @@
 
 /** delay with contact section **/
     <script type="module">
-        import * as THREE from 'three';
-        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-        import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import { THREE, OrbitControls, GLTFLoader } from './share.js';
+        // import * as THREE from 'three';
+        // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        // import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
         // When Three.js is loaded...
         let phone;
         let allModels;
@@ -908,9 +911,10 @@
 
         // work script
         <script type="module">
-            import * as THREE from 'three';
-            import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-            import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+          import { THREE, OrbitControls, GLTFLoader } from './share.js';
+            // import * as THREE from 'three';
+            // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+            // import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
             // When Three.js is loaded...
             let phone;
             let allModels;
