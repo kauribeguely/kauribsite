@@ -7,7 +7,91 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <section class="hero h100 bblue">
+  <header>
+    <div class="logo">
+      <a href="/">Your Logo Here</a>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <style>
+    header {
+      position: fixed;
+      width: 100vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px; /* Adjust as needed */
+      background-color: #f8f8f8; /* Optional background color */
+      box-sizing: border-box;
+      /* Add any other global header styles here */
+      z-index: 10;
+    }
+
+      .logo a {
+      font-size: 1.5em; /* Adjust logo font size */
+      font-weight: bold;
+      color: #333; /* Adjust logo color */
+      text-decoration: none;
+      }
+
+      nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      }
+
+      nav ul li {
+      margin-left: 20px; /* Spacing between menu items */
+      }
+
+      nav ul li:first-child {
+      margin-left: 0;
+      }
+
+      nav ul li a {
+      text-decoration: none;
+      color: #555; /* Menu item color */
+      font-size: 1em; /* Adjust menu item font size */
+      transition: color 0.3s ease; /* Smooth hover effect */
+      }
+
+      nav ul li a:hover {
+      color: #007bff; /* Hover color */
+      }
+
+      /* Responsive adjustments (optional) */
+      @media (max-width: 768px) {
+      header {
+        padding: 15px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav {
+        margin-top: 15px;
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      nav ul li {
+        margin-left: 0;
+        margin-bottom: 10px;
+      }
+      }
+    </style>
+</header>
+  <section id="hero" class="h100 bblue">
     <div class="fixed-width">
       <div class="hero-left">
         <p class="hero-pretitle tyorange">kauri beguely</p>
@@ -26,7 +110,7 @@
       </div>
     </div>
   </section>
-  <section class="work h100">
+  <section id="work" class=" h100">
     <canvas id="workCanvas"></canvas>
     <h2 class="sec-heading tblue">Work</h2>
     <div class="fixed-width">
@@ -64,7 +148,7 @@
 
 
   </section>
-  <section class="about bblue">
+  <section id="about" class="bblue">
     <div class="fixed-width">
 
       <div class="left-col">
@@ -86,7 +170,7 @@
     </div>
 
   </section>
-  <section class="blog bblue">
+  <section id="blog" class="bblue">
     <!-- load this later -->
     <div class="fixed-width flex-column">
 
@@ -198,7 +282,7 @@
     </div>
 
   </section>
-  <section class="contact h100">
+  <section id="contact" class="h100">
     <div class="fixed-width">
       <div class="left-col">
 
@@ -620,22 +704,23 @@
                     if (entry.isIntersecting) {
                         // Get the target element (the <section> that intersected)
                         const targetSection = entry.target;
-                        const className = targetSection.className;
-                        if (className.includes('hero')) {
+                        const sectionId = targetSection.id; // Get the ID instead of className
+
+                        if (sectionId === 'hero') {
                             console.log("hero section entered viewport.");
                             // no need for this?
-                        } else if (className.includes('work')) {
+                        } else if (sectionId === 'work') {
                             console.log("work section entered viewport.");
                             // trigger preload of about section
-                        } else if (className.includes('about')) {
+                        } else if (sectionId === 'about') {
                             console.log("about section entered viewport.");
                             // trigger fetch etc of blog section
                             runBlogFetch();
-                        } else if (className.includes('blog')) {
+                        } else if (sectionId === 'blog') {
                             console.log("blog section entered viewport.");
                             // fadeInPosts();
                             // Add your about-specific logic here
-                        } else if (className.includes('contact')) {
+                        } else if (sectionId === 'contact') {
                             console.log("contact section entered viewport.");
                             // Add your about-specific logic here
                         } else {

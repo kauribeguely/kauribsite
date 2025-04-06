@@ -55,15 +55,6 @@ h1
   transform: skew(-5deg, 0deg);
 }
 
-.hero
-{
-}
-
-.work, .blog, .contact
-{
-
-}
-
 .tyorange
 {
   color: var(--yorange);
