@@ -26,7 +26,7 @@
 
 h1, h2, h3, h4
 {
-  font-family: 'LRed', impact, sans-serif;
+  font-family: 'LRed', 'League', impact, sans-serif;
   text-transform: uppercase;
   font-weight: normal;
   color: var(--white);
@@ -57,6 +57,7 @@ section#hero {
   font-size: 66px;
   rotate: -4deg;
   transform: skew(-5deg, 0deg);
+  margin-bottom: 0px;
 }
 
 .tyorange
@@ -141,7 +142,7 @@ p {
 
 .hero-pretitle
 {
-  font-family: 'LRed', sans-serif;
+  font-family: 'LRed', 'League', sans-serif;
   transform: skew(-5deg, 0deg);
   rotate: -4deg;
   text-transform: uppercase;
@@ -218,8 +219,13 @@ p {
 
 .josecaps
 {
-  font-family: "Josefin";
   color: var(--yorange);
+  font-family: "Josefin", Sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 7px;
 }
 
 .blog .sec-heading {
