@@ -24,6 +24,11 @@
   --white: #F6F5F5;
 }
 
+html
+{
+  overflow-x: hidden;
+}
+
 h1, h2, h3, h4
 {
   font-family: 'LRed', 'League', impact, sans-serif;
@@ -57,7 +62,8 @@ section#hero {
   font-size: 66px;
   rotate: -4deg;
   transform: skew(-5deg, 0deg);
-  margin-bottom: 0px;
+  margin-bottom: 27px;
+  margin-top: 0px;
 }
 
 .tyorange
@@ -113,17 +119,15 @@ section {
 }
 
 .hero-left, .hero-right {
-    flex: 1; /* Equal width columns */
+    /* flex: 1; */ /* Equal width columns */
     display: flex;
     flex-direction: column;
     justify-content: center; /* Center vertically */
+    width: 50%;
     /* align-items: center; */ /* Center horizontally */
 }
 
-.hero-left {
-/* padding-top: 50px;
-padding-bottom: 50px; */
-}
+
 
 .hero-heading {
     /* font-size: 2.5rem; */
@@ -136,7 +140,7 @@ section {
 
 /* .hero-subtitle { */
 p {
-    font-size: 14px;
+    font-size: 17px;
     /* margin-bottom: 2rem; */
 }
 
@@ -162,11 +166,13 @@ p {
 position: absolute;
 }
 
-.hero-right{
+.hero-right
+{
   /* background-color: #c1c1c1; */
   /* justify-content: start; */
   align-items: center;
   height: 700px;
+  position: relative;
 }
 
 /* code gen load screen */
@@ -253,8 +259,8 @@ p {
 
 .fadeIn
 {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
+  /* opacity: 0; */
+  /* animation: fadeIn 1s ease forwards; */
   animation-delay: var(--fade-delay, 0s);
 }
 
@@ -285,6 +291,7 @@ button
   letter-spacing: 7px;
   padding: 15px 40px 15px 40px;
   border: none;
+  cursor: pointer;
 }
 
 
@@ -298,4 +305,65 @@ button
   {
     opacity: 1;
   }
+}
+
+@media only screen and (max-width: 1300px)
+{
+  .fixed-width
+  {
+    flex-direction: column;
+    width: auto;
+  }
+
+  .hero-heading
+  {
+    text-align: center;
+  }
+
+  .hero-left
+  {
+    margin-top: -170px;
+    z-index: 2;
+  }
+
+  .hero-right
+  {
+    /* height: 500px; */
+    margin-top: -150px;
+  }
+
+  .hero-left, .hero-right
+  {
+      width: 100%;
+      align-items: center;
+  }
+
+  .left-col, .right-col {
+    width: 100%;
+    align-items: center;
+  }
+
+
+  #hero .fixed-width
+  {
+    flex-direction: column-reverse;
+  }
+
+  .h100
+  {
+    height: auto;
+  }
+
+
+
+}
+
+@media (max-width: 768px) {
+
+  .hero-heading
+  {
+    font-size: 60px;
+    line-height: 57px;
+  }
+
 }
